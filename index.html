@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedTransitions Global — Guiding Transitions</title>
+<style>
+:root {
+  --site-primary: #8E1020;
+  --site-secondary: #C9253A;
+  --site-background: #FBF8F6;
+  --site-on-primary: #FFFFFF;
+  --site-on-secondary: #FFFFFF;
+  --site-on-background: #2A2020;
+  --site-font-body: Inter, "Segoe UI", Arial, sans-serif;
+  --site-font-heading: Inter, "Segoe UI", Arial, sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  --ink: #282020;
+  --muted: #756A69;
+  --line: #E9DAD8;
+  --rose: #F5E8E7;
+  --white: #FFFFFF;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--site-font-body); color: var(--ink); background: var(--site-background); }
+#site { min-height: 100vh; width: 100%; background: var(--site-background); color: var(--site-on-background); overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+.wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+.announcement { background: var(--site-primary); color: white; font-size: 12px; letter-spacing: .08em; text-align: center; padding: 10px 18px; }
+header { background: rgba(251,248,246,.96); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+.nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 225px; }
+.brand-mark { width: 42px; height: 42px; display: grid; place-items: center; background: var(--site-primary); color: white; border-radius: 50% 50% 50% 8px; font-weight: 800; font-size: 15px; letter-spacing: -.06em; }
+.brand-name { font-weight: 800; font-size: 14px; letter-spacing: .1em; color: var(--site-primary); }
+.brand-sub { font-size: 9px; letter-spacing: .24em; margin-top: 4px; color: var(--muted); }
+.nav-links { display: flex; align-items: center; gap: 27px; font-size: 13px; color: #514747; }
+.nav-links a:hover { color: var(--site-secondary); }
+.nav-cta, .btn { border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 18px; border-radius: 4px; font-weight: 700; font-size: 13px; transition: transform .2s, background .2s; }
+.nav-cta, .btn-primary { background: var(--site-primary); color: white; }
+.nav-cta:hover, .btn-primary:hover { background: var(--site-secondary); transform: translateY(-1px); }
+.btn-outline { color: var(--site-primary); border: 1px solid #CBA5A8; background: transparent; }
+.btn-outline:hover { background: var(--rose); }
+.menu-toggle { display: none; border: 1px solid var(--line); background: white; padding: 9px 12px; border-radius: 4px; color: var(--site-primary); }
+.hero { position: relative; padding: 78px 0 70px; background: radial-gradient(ellipse at 86% 30%, #F1D9D9 0, transparent 34%), linear-gradient(115deg, #FBF8F6 0%, #FBF8F6 56%, #F7ECEA 100%); }
+.hero:after { content: ""; position: absolute; right: -110px; top: -120px; width: 470px; height: 470px; border: 1px solid rgba(142,16,32,.13); border-radius: 50%; box-shadow: 0 0 0 36px rgba(142,16,32,.025), 0 0 0 78px rgba(142,16,32,.02); pointer-events: none; opacity: var(--site-decoration-opacity); }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+.eyebrow { color: var(--site-secondary); text-transform: uppercase; font-size: 11px; font-weight: 800; letter-spacing: .19em; display: flex; align-items: center; gap: 11px; }
+.eyebrow:before { content: ""; width: 28px; height: 2px; background: var(--site-secondary); }
+h1,h2,h3,p { margin-top: 0; }
+h1 { font-family: var(--site-font-heading); font-size: clamp(42px, 5.2vw, 67px); line-height: 1.04; letter-spacing: -.055em; color: var(--site-primary); margin: 23px 0 22px; font-weight: 760; }
+h1 em { font-style: normal; color: var(--site-secondary); }
+.hero-copy { max-width: 530px; color: #625655; line-height: 1.8; font-size: 16px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero-note { margin-top: 28px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+.hero-note span { width: 7px; height: 7px; border-radius: 50%; background: var(--site-secondary); }
+.hero-art { min-height: 420px; position: relative; display: flex; align-items: center; justify-content: center; }
+.art-panel { position: relative; width: min(100%, 430px); min-height: 375px; background: var(--site-primary); color: white; border-radius: 4px 80px 4px 4px; overflow: hidden; padding: 32px; box-shadow: 0 22px 55px rgba(92,15,25,.16); }
+.art-panel:before { content: ""; position: absolute; width: 330px; height: 330px; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; right: -100px; top: -100px; box-shadow: 0 0 0 30px rgba(255,255,255,.04), 0 0 0 65px rgba(255,255,255,.035); }
+.art-label { font-size: 10px; letter-spacing: .2em; color: #F0C8CC; text-transform: uppercase; }
+.art-heading { font-size: 30px; line-height: 1.15; letter-spacing: -.04em; font-weight: 700; max-width: 280px; margin-top: 35px; position: relative; z-index: 1; }
+.art-lines { margin-top: 25px; width: 100%; height: 1px; background: rgba(255,255,255,.3); position: relative; }
+.art-lines:after { content: ""; position: absolute; width: 60%; top: 13px; left: 0; height: 1px; background: rgba(255,255,255,.22); }
+.art-footer { position: absolute; left: 32px; right: 32px; bottom: 30px; display: flex; justify-content: space-between; align-items: end; font-size: 10px; letter-spacing: .12em; color: #F1D5D7; }
+.art-symbol { width: 68px; height: 68px; border: 1px solid rgba(255,255,255,.5); border-radius: 50% 50% 50% 8px; display: grid; place-items: center; font-size: 23px; }
+.floating-card { position: absolute; bottom: 12px; left: -27px; padding: 17px 19px; background: white; border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(60,20,20,.08); border-radius: 4px; max-width: 220px; }
+.floating-card strong { display: block; color: var(--site-primary); font-size: 13px; margin-bottom: 5px; }
+.floating-card span { font-size: 11px; color: var(--muted); line-height: 1.5; display: block; }
+.trust-strip { background: white; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.trust-grid { display: grid; grid-template-columns: repeat(4,1fr); padding: 24px 0; }
+.trust-item { padding: 0 24px; border-right: 1px solid var(--line); }
+.trust-item:first-child { padding-left: 0; }
+.trust-item:last-child { border: 0; }
+.trust-item strong { display: block; color: var(--site-primary); font-size: 13px; margin-bottom: 5px; }
+.trust-item span { color: var(--muted); font-size: 11px; }
+section { padding: 84px 0; }
+.section-head { max-width: 680px; margin-bottom: 38px; }
+.section-head h2 { font-size: clamp(30px, 3.6vw, 43px); line-height: 1.12; letter-spacing: -.045em; color: var(--site-primary); margin: 15px 0; }
+.section-head p { color: var(--muted); line-height: 1.8; font-size: 14px; max-width: 620px; }
+.transitions { background: #FFFFFF; }
+.path-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 15px; }
+.path-card { padding: 25px 22px; border: 1px solid var(--line); background: #FFFEFD; min-height: 225px; border-radius: 4px; transition: border .2s, transform .2s; }
+.path-card:hover { border-color: #CB9299; transform: translateY(-4px); }
+.path-icon { width: 42px; height: 42px; display: grid; place-items: center; color: var(--site-primary); background: var(--rose); border-radius: 50% 50% 50% 8px; font-size: 19px; }
+.path-card h3 { margin: 20px 0 10px; font-size: 16px; line-height: 1.35; color: var(--site-primary); }
+.path-card p { color: var(--muted); font-size: 12px; line-height: 1.7; margin-bottom: 15px; }
+.text-link { color: var(--site-secondary); font-size: 12px; font-weight: 800; }
+.about { background: #F6ECEA; }
+.about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 75px; align-items: center; }
+.about-art { min-height: 365px; background: var(--site-primary); color: white; padding: 34px; position: relative; overflow: hidden; border-radius: 4px 4px 70px 4px; }
+.about-art .big-quote { font-size: 100px; line-height: .9; color: #ECAEB5; font-family: Georgia,serif; }
+.about-art blockquote { margin: 10px 0 35px; font-size: 27px; line-height: 1.25; letter-spacing: -.04em; position: relative; z-index: 1; }
+.about-art small { color: #EBC8CC; letter-spacing: .14em; text-transform: uppercase; font-size: 10px; }
+.about-copy p { color: #645757; font-size: 14px; line-height: 1.9; }
+.value-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 23px 0 27px; }
+.value-chip { border: 1px solid #D9B6B7; color: var(--site-primary); border-radius: 100px; padding: 8px 12px; font-size: 11px; font-weight: 700; }
+.region { background: white; }
+.region-switch { display: inline-flex; padding: 5px; background: #F5E8E7; border-radius: 6px; gap: 4px; margin-bottom: 26px; }
+.region-switch button { border: 0; padding: 11px 17px; border-radius: 4px; color: var(--site-primary); background: transparent; font-weight: 700; font-size: 12px; }
+.region-switch button.active { color: white; background: var(--site-primary); }
+.region-panel { border: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 36px; background: #FFFEFD; border-radius: 4px; }
+.region-panel h3 { color: var(--site-primary); font-size: 27px; letter-spacing: -.035em; margin-bottom: 14px; }
+.region-panel p { color: var(--muted); line-height: 1.8; font-size: 13px; }
+.region-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 13px; }
+.region-list li { display: flex; gap: 10px; color: #514747; font-size: 13px; line-height: 1.5; }
+.check { color: var(--site-secondary); font-weight: 900; }
+.values { background: var(--site-primary); color: white; }
+.values .section-head h2 { color: white; }
+.values .section-head p { color: #E7C9CC; }
+.values .eyebrow { color: #F1B9C0; }
+.values .eyebrow:before { background: #F1B9C0; }
+.value-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 22px; }
+.value-box { border-top: 1px solid rgba(255,255,255,.32); padding-top: 20px; }
+.value-number { font-size: 11px; color: #F0B4BC; letter-spacing: .14em; }
+.value-box h3 { margin: 14px 0 8px; font-size: 16px; }
+.value-box p { font-size: 12px; line-height: 1.7; color: #E7C9CC; }
+.cta-section { padding: 72px 0; background: #F6ECEA; }
+.cta-box { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+.cta-box h2 { color: var(--site-primary); font-size: clamp(28px,3.4vw,40px); line-height: 1.12; letter-spacing: -.045em; margin-bottom: 12px; }
+.cta-box p { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0; max-width: 570px; }
+footer { background: #2E171A; color: white; padding: 50px 0 22px; }
+.footer-top { display: grid; grid-template-columns: 1.4fr .8fr .8fr; gap: 50px; padding-bottom: 40px; }
+footer .brand-name { color: white; }
+footer .brand-sub { color: #D7B9BC; }
+.footer-blurb { max-width: 350px; color: #D5C1C3; font-size: 12px; line-height: 1.8; margin-top: 20px; }
+.footer-col h4 { font-size: 11px; letter-spacing: .13em; text-transform: uppercase; margin: 5px 0 18px; color: #E9B6BC; }
+.footer-col a { display: block; color: #E5D4D5; font-size: 12px; margin: 12px 0; }
+.footer-bottom { border-top: 1px solid #5A3C40; padding-top: 20px; display: flex; justify-content: space-between; gap: 20px; color: #C7AEB1; font-size: 10px; }
+.disclaimer { margin-top: 14px; color: #9F8588; font-size: 10px; line-height: 1.6; }
+@media(max-width:900px) { .nav-links { gap: 15px; } .nav-links a:nth-child(3),.nav-links a:nth-child(4) { display:none; } .hero-grid { gap: 30px; } .path-grid { grid-template-columns: repeat(2,1fr); } .about-grid { gap: 35px; } .value-grid { grid-template-columns: repeat(3,1fr); } }
+@media(max-width:640px) { .wrap { width: min(100% - 32px, 1160px); } .announcement { font-size: 10px; } .nav { min-height: 70px; } .brand { min-width: 0; } .brand-mark { width: 36px; height: 36px; } .brand-name { font-size: 12px; } .nav-links { display:none; position:absolute; top:70px; left:0; right:0; background:#FBF8F6; padding:20px 24px; border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:18px; } .nav-links.open { display:flex; } .nav-links a:nth-child(3),.nav-links a:nth-child(4) { display:block; } .nav-cta { display:none; } .menu-toggle { display:block; } .hero { padding: 54px 0 46px; } .hero-grid { grid-template-columns:1fr; } h1 { font-size: 46px; } .hero-copy { font-size:14px; } .hero-art { min-height:330px; margin-top:8px; } .art-panel { min-height:310px; } .art-heading { font-size:26px; margin-top:25px; } .floating-card { left:-4px; bottom:-2px; } .trust-grid { grid-template-columns:1fr 1fr; row-gap:22px; } .trust-item { padding:0 12px; } .trust-item:nth-child(2) { border:0; } .trust-item:first-child,.trust-item:nth-child(3) { padding-left:0; } section { padding:60px 0; } .path-grid { grid-template-columns:1fr; } .path-card { min-height:0; } .about-grid { grid-template-columns:1fr; } .about-art { min-height:290px; } .region-panel { grid-template-columns:1fr; gap:22px; padding:24px; } .value-grid { grid-template-columns:1fr 1fr; } .cta-box { align-items:flex-start; flex-direction:column; } .footer-top { grid-template-columns:1fr 1fr; gap:30px 20px; } .footer-top > div:first-child { grid-column:1/-1; } .footer-bottom { flex-direction:column; } }
+@media(prefers-color-scheme:dark) { :root { --site-background:#21191A; --site-on-background:#F7EEEE; --ink:#F7EEEE; --muted:#C0ABAD; --line:#4B3639; --rose:#3B2528; } body,#site { background:var(--site-background); } header { background:rgba(33,25,26,.96); } .brand-sub { color:#C0ABAD; } .nav-links { color:#E0D1D2; } .hero { background:radial-gradient(ellipse at 86% 30%, #48262C 0, transparent 34%), linear-gradient(115deg,#21191A 0%,#21191A 56%,#302022 100%); } .hero-copy,.about-copy p,.region-panel p { color:#C0ABAD; } .trust-strip,.transitions,.region,.region-panel,.path-card,.nav-links { background:#2A2021; } .trust-item span,.path-card p,.region-list li { color:#C0ABAD; } .about,.cta-section { background:#302224; } .path-card { border-color:#4B3639; } .floating-card { background:#2A2021; border-color:#4B3639; } .floating-card span { color:#C0ABAD; } .section-head p { color:#C0ABAD; } .region-switch { background:#3B2528; } .footer-blurb { color:#D5C1C3; } }
+</style>
+</head>
+<body>
+<div id="site">
+  <div class="announcement">SUPPORTING THE PEOPLE BEHIND HEALTHCARE, THROUGH EVERY TRANSITION</div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="MedTransitions Global home"><div class="brand-mark">MT</div><div><div class="brand-name">MEDTRANSITIONS</div><div class="brand-sub">GLOBAL</div></div></a>
+      <nav class="nav-links" id="navLinks"><a href="#about">Our Story</a><a href="#pathways">Our Approach</a><a href="#ghana">Ghana</a><a href="#values">Our Values</a><a href="#contact">Contact</a></nav>
+      <a class="nav-cta" href="#pathways">Explore pathways <span>↗</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Guiding transitions, shaping the medical future</div>
+          <h1>Your next chapter in medicine <em>starts here.</em></h1>
+          <p class="hero-copy">Medical careers are shaped by the transitions between one stage and the next. We help medical students and early-career doctors navigate those moments with clearer information, meaningful mentorship and a community to turn to.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="#pathways">Explore our approach <span>→</span></a><a class="btn btn-outline" href="#about">Get to know us</a></div>
+          <div class="hero-note"><span></span> Your future, our focus.</div>
+        </div>
+        <div class="hero-art" aria-label="Brand message artwork">
+          <div class="art-panel"><div class="art-label">MedTransitions Global</div><div class="art-heading">The right support.<br>The right connection.<br>A clearer next step.</div><div class="art-lines"></div><div class="art-footer"><span>CLARITY · COMMUNITY · EQUITY</span><div class="art-symbol">✳</div></div></div>
+          <div class="floating-card"><strong>Every transition matters.</strong><span>Practical guidance for the moments that shape a medical career.</span></div>
+        </div>
+      </div>
+    </section>
+    <div class="trust-strip"><div class="wrap trust-grid"><div class="trust-item"><strong>Transition-led</strong><span>Support built around the next step</span></div><div class="trust-item"><strong>Experience-informed</strong><span>Learning from those who have been there</span></div><div class="trust-item"><strong>Learning-driven</strong><span>Listening, learning and adapting</span></div><div class="trust-item"><strong>Connection-centred</strong><span>People and knowledge beyond one session</span></div></div></div>
+    <section class="transitions" id="pathways"><div class="wrap"><div class="section-head"><div class="eyebrow">A career is made of transitions</div><h2>Support for the moments between the milestones.</h2><p>From the first days of clinical practice to decisions about specialist training and international pathways, the questions change. Our approach starts with the transition and the guidance people need to navigate it.</p></div><div class="path-grid">
+      <article class="path-card"><div class="path-icon">✚</div><h3>Medical school to housemanship</h3><p>Prepare for the move from student life into the responsibilities of clinical practice.</p><a class="text-link" href="#contact">Explore this transition ↗</a></article>
+      <article class="path-card"><div class="path-icon">＋</div><h3>Early professional practice</h3><p>Navigate new responsibilities, unfamiliar systems and the questions that come with them.</p><a class="text-link" href="#contact">Explore this transition ↗</a></article>
+      <article class="path-card"><div class="path-icon">⌘</div><h3>Residency and specialisation</h3><p>Make more informed decisions about postgraduate training and future areas of practice.</p><a class="text-link" href="#contact">Explore this transition ↗</a></article>
+      <article class="path-card"><div class="path-icon">◎</div><h3>International medical pathways</h3><p>Find clearer information as you consider training and career opportunities across borders.</p><a class="text-link" href="#contact">Explore this transition ↗</a></article>
+    </div></div></section>
+    <section class="about" id="about"><div class="wrap about-grid"><div class="about-art"><div class="big-quote">“</div><blockquote>A next step should not be difficult to navigate simply because the right support was out of reach.</blockquote><small>Our guiding belief</small></div><div class="about-copy"><div class="eyebrow">Who we are</div><div class="section-head"><h2>Helping doctors find clarity in the in-between.</h2></div><p>MedTransitions Global is a physician-led nonprofit organisation supporting medical students and early-career doctors through important transitions in their professional lives.</p><p>We began in Ghana with a simple observation: many of the questions that shape a medical career are answered informally, through personal networks and the experiences of those who have gone before. We work to make that support more structured and accessible.</p><p>Our programmes bring together doctors, specialists, mentors and peers to share knowledge, prepare for what comes next and build connections that can continue beyond a single event.</p><div class="value-list"><span class="value-chip">Clarity</span><span class="value-chip">Community</span><span class="value-chip">Excellence</span><span class="value-chip">Relevance</span><span class="value-chip">Equity</span></div><a class="btn btn-primary" href="#values">What guides our work <span>→</span></a></div></div></section>
+    <section class="region" id="ghana"><div class="wrap"><div class="section-head"><div class="eyebrow">Global vision, local understanding</div><h2>Rooted in Ghana. Open to the wider world.</h2><p>Our work began in Ghana, and our wider ambition is to support medical career transitions across different settings and contexts. Explore the focus of our global work and the Ghana version of our organisation.</p></div><div class="region-switch" role="tablist" aria-label="Choose region"><button class="active" id="globalTab" role="tab" aria-selected="true">Global overview</button><button id="ghanaTab" role="tab" aria-selected="false">Ghana version</button></div><div class="region-panel" id="regionPanel"><div><div class="eyebrow" id="regionEyebrow">MedTransitions Global</div><h3 id="regionTitle">A clearer path, wherever your journey takes you.</h3><p id="regionDescription">We work to make support through medical career transitions more structured, accessible and responsive to the needs of doctors at different stages.</p><a class="btn btn-primary" href="#contact" id="regionCta">Connect with us <span>→</span></a></div><ul class="region-list" id="regionList"><li><span class="check">✓</span><span>Guidance shaped around specific career transitions</span></li><li><span class="check">✓</span><span>Mentorship and connections with experienced professionals</span></li><li><span class="check">✓</span><span>Learning informed by participant feedback and experience</span></li><li><span class="check">✓</span><span>A wider ambition built from our beginnings in Ghana</span></li></ul></div></div></section>
+    <section class="values" id="values"><div class="wrap"><div class="section-head"><div class="eyebrow">What guides our work</div><h2>Values that shape every transition.</h2><p>Our values are not just words. They are a reminder to keep our support useful, thoughtful and centred on what medical professionals actually need.</p></div><div class="value-grid"><div class="value-box"><div class="value-number">01 /</div><h3>Clarity</h3><p>We make the path easier to understand.</p></div><div class="value-box"><div class="value-number">02 /</div><h3>Community</h3><p>We believe transitions are better navigated together.</p></div><div class="value-box"><div class="value-number">03 /</div><h3>Excellence</h3><p>We hold our work to a high standard.</p></div><div class="value-box"><div class="value-number">04 /</div><h3>Relevance</h3><p>We respond to what people actually need.</p></div><div class="value-box"><div class="value-number">05 /</div><h3>Equity</h3><p>Access to support should not depend solely on access to the right people.</p></div></div></div></section>
+    <section class="cta-section" id="contact"><div class="wrap cta-box"><div><div class="eyebrow">Be part of the journey</div><h2>Help make the next step clearer.</h2><p>Whether you are a medical student, a doctor looking for guidance, an experienced professional interested in mentoring, or a potential partner, we would be glad to hear from you.</p></div><a class="btn btn-primary" href="mailto:hello@medtransitions.org">Start a conversation <span>↗</span></a></div></section>
+  </main>
+  <footer><div class="wrap"><div class="footer-top"><div><a class="brand" href="#home"><div class="brand-mark" style="background:#C9253A">MT</div><div><div class="brand-name">MEDTRANSITIONS</div><div class="brand-sub">GLOBAL</div></div></a><p class="footer-blurb">Guiding transitions, shaping the medical future. Supporting medical students and early-career doctors with guidance, mentorship, resources and community.</p></div><div class="footer-col"><h4>Explore</h4><a href="#about">Our story</a><a href="#pathways">Our approach</a><a href="#ghana" id="footerGhana">Ghana version</a><a href="#values">Our values</a></div><div class="footer-col"><h4>Connect</h4><a href="#contact">Get in touch</a><a href="#contact">Mentor with us</a><a href="#contact">Partnerships</a><a href="#contact">Programme enquiries</a></div></div><div class="footer-bottom"><span>© 2026 MedTransitions Global. All rights reserved.</span><span>Your future, our focus.</span></div><p class="disclaimer">Website concept preview. Contact details, programme links, organisational structure, participant stories and impact figures should be confirmed before launch. The email address shown is a placeholder and should be replaced with your official contact.</p></div></footer>
+</div>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => { navLinks.classList.toggle('open'); menuToggle.setAttribute('aria-expanded', navLinks.classList.contains('open') ? 'true' : 'false'); });
+navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
+const globalTab = document.getElementById('globalTab');
+const ghanaTab = document.getElementById('ghanaTab');
+const regionEyebrow = document.getElementById('regionEyebrow');
+const regionTitle = document.getElementById('regionTitle');
+const regionDescription = document.getElementById('regionDescription');
+const regionList = document.getElementById('regionList');
+const regionCta = document.getElementById('regionCta');
+function setRegion(region) {
+  const ghana = region === 'ghana';
+  globalTab.classList.toggle('active', !ghana); ghanaTab.classList.toggle('active', ghana);
+  globalTab.setAttribute('aria-selected', String(!ghana)); ghanaTab.setAttribute('aria-selected', String(ghana));
+  if (ghana) {
+    regionEyebrow.textContent = 'MedTransitions Ghana';
+    regionTitle.textContent = 'Practical support for the transitions Ghanaian doctors face.';
+    regionDescription.textContent = 'The Ghana version can spotlight locally relevant programmes, opportunities, guidance and community connections, while remaining part of the wider MedTransitions Global identity.';
+    regionList.innerHTML = '<li><span class="check">✓</span><span>Guidance for the transition into housemanship and early practice</span></li><li><span class="check">✓</span><span>Career and postgraduate training information relevant to Ghana</span></li><li><span class="check">✓</span><span>Connections with mentors, peers and experienced doctors</span></li><li><span class="check">✓</span><span>Local programme updates and opportunities as they become available</span></li>';
+    regionCta.innerHTML = 'Explore Ghana initiatives <span>→</span>';
+  } else {
+    regionEyebrow.textContent = 'MedTransitions Global';
+    regionTitle.textContent = 'A clearer path, wherever your journey takes you.';
+    regionDescription.textContent = 'We work to make support through medical career transitions more structured, accessible and responsive to the needs of doctors at different stages.';
+    regionList.innerHTML = '<li><span class="check">✓</span><span>Guidance shaped around specific career transitions</span></li><li><span class="check">✓</span><span>Mentorship and connections with experienced professionals</span></li><li><span class="check">✓</span><span>Learning informed by participant feedback and experience</span></li><li><span class="check">✓</span><span>A wider ambition built from our beginnings in Ghana</span></li>';
+    regionCta.innerHTML = 'Connect with us <span>→</span>';
+  }
+}
+globalTab.addEventListener('click', () => setRegion('global'));
+ghanaTab.addEventListener('click', () => setRegion('ghana'));
+</script>
+</body>
+</html>
